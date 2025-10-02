@@ -53,7 +53,7 @@ A full-stack web application for sharing and discovering recipes built with Reac
      ```
      PORT=3001
      DATABASE_URL=mongodb://localhost:27017/recipes
-     JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
+     JWT_SECRET=your-super-secret-jwt-key-change-to-what-you-want
      ```
 
 4. Start the development servers:
