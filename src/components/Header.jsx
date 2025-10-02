@@ -16,7 +16,14 @@ export function Header() {
         borderBottom: '1px solid #ccc',
       }}
     >
-      <h1 style={{ margin: 0 }}>Recipe Sharing Community</h1>
+      <img
+        width='100'
+        src='src/components/IMG_3448.PNG'
+        alt="Rusty's Recipe Sharing"
+      />
+      <h1 style={{ margin: 0 }}>Rusty&apos;s Recipe Sharing</h1>
+      <br />
+
       <div>
         {token ? (
           <div>

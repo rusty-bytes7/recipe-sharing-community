@@ -1,4 +1,4 @@
-# Recipe Sharing Community
+# Recipe Sharing
 
 A full-stack web application for sharing and discovering recipes built with React, Node.js, Express, and MongoDB.
 
