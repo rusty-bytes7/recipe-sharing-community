@@ -1,6 +1,6 @@
-# Recipe Sharing
+# Recipe Sharing App
 
-A full-stack web application for sharing and discovering recipes built with React, Node.js, Express, and MongoDB.
+A full-stack web application for sharing and discovering recipes built with React, Node.js, Express, and MongoDB!
 
 ## Features
 
