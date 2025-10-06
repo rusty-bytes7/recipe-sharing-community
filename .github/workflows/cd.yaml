@@ -31,7 +31,7 @@ jobs:
         name: Deploy backend
         uses: google-github-actions/deploy-cloudrun@v1
         with:
-          service: blog-backend
+          service: recipe-backend
           image: ${{ secrets.DOCKERHUB_USERNAME }}/recipe-backend:latest
           region: ${{ secrets.GOOGLECLOUD_REGION }}
       - name: Build and push frontend image
@@ -46,6 +46,6 @@ jobs:
         name: Deploy frontend
         uses: google-github-actions/deploy-cloudrun@v1
         with:
-          service: blog-frontend
+          service: recipe-frontend
           image: ${{ secrets.DOCKERHUB_USERNAME }}/recipe-frontend:latest
           region: ${{ secrets.GOOGLECLOUD_REGION }}
