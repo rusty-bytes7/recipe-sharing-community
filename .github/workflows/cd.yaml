@@ -34,6 +34,7 @@ jobs:
           service: recipe-backend
           image: ${{ secrets.DOCKERHUB_USERNAME }}/recipe-backend:latest
           region: ${{ secrets.GOOGLECLOUD_REGION }}
+          env_vars: DATABASE_URL=${{ secrets.MONGODB_CONNECTION_STRING }}
       - name: Build and push frontend image
         uses: docker/build-push-action@v4
         with:
