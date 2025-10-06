@@ -20,7 +20,6 @@ jobs:
         with:
           service_account: ${{ secrets.GOOGLECLOUD_SERVICE_ACCOUNT }}
           credentials_json: ${{ secrets.GOOGLECLOUD_CREDENTIALS }}
-
       - name: Build and push backend image
         uses: docker/build-push-action@v4
         with:
@@ -32,12 +31,9 @@ jobs:
         name: Deploy backend
         uses: google-github-actions/deploy-cloudrun@v1
         with:
-          service: recipe-backend
+          service: blog-backend
           image: ${{ secrets.DOCKERHUB_USERNAME }}/recipe-backend:latest
           region: ${{ secrets.GOOGLECLOUD_REGION }}
-          flags: '--port=8080 --memory=1Gi --cpu=1 --timeout=300 --max-instances=10 --allow-unauthenticated --cpu-boost'
-          env_vars: |
-            DATABASE_URL=${{ secrets.MONGODB_CONNECTION_STRING }}
       - name: Build and push frontend image
         uses: docker/build-push-action@v4
         with:
@@ -50,6 +46,6 @@ jobs:
         name: Deploy frontend
         uses: google-github-actions/deploy-cloudrun@v1
         with:
-          service: recipe-frontend
+          service: blog-frontend
           image: ${{ secrets.DOCKERHUB_USERNAME }}/recipe-frontend:latest
           region: ${{ secrets.GOOGLECLOUD_REGION }}
