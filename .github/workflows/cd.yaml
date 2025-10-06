@@ -20,6 +20,7 @@ jobs:
         with:
           service_account: ${{ secrets.GOOGLECLOUD_SERVICE_ACCOUNT }}
           credentials_json: ${{ secrets.GOOGLECLOUD_CREDENTIALS }}
+          
       - name: Build and push backend image
         uses: docker/build-push-action@v4
         with:
@@ -34,7 +35,7 @@ jobs:
           service: recipe-backend
           image: ${{ secrets.DOCKERHUB_USERNAME }}/recipe-backend:latest
           region: ${{ secrets.GOOGLECLOUD_REGION }}
-          flags: '--port=8080 --memory=1Gi --cpu=1 --timeout=300 --max-instances=10'
+          flags: '--port=8080 --memory=1Gi --cpu=1 --timeout=300 --max-instances=10 --allow-unauthenticated'
           env_vars: |
             PORT=8080
             DATABASE_URL=${{ secrets.MONGODB_CONNECTION_STRING }}
