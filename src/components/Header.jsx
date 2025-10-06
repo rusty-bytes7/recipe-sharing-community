@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
 import { useAuth } from '../contexts/AuthContext.jsx'
 import { User } from './User.jsx'
+import rustyImage from './IMG_3448.PNG'
 
 export function Header() {
   const [token, setToken] = useAuth()
@@ -16,11 +17,7 @@ export function Header() {
         borderBottom: '1px solid #ccc',
       }}
     >
-      <img
-        width='100'
-        src='src/components/IMG_3448.PNG'
-        alt="Rusty's Recipe Sharing"
-      />
+      <img width='100' src={rustyImage} alt="Rusty's Recipe Sharing" />
       <h1 style={{ margin: 0 }}>Rusty&apos;s Recipe Sharing</h1>
       <br />
 

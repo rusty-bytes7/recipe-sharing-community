@@ -8,7 +8,7 @@ services:
     build: backend/
     environment:
       - PORT=3001
-      - DATABASE_URL= mongodb://host.docker.internal:27017/recipes
+      - DATABASE_URL=mongodb://recipe-database:27017/recipes
     ports:
       - '3001:3001'
     depends_on:
@@ -19,6 +19,6 @@ services:
       args:
         VITE_BACKEND_URL: http://recipe-backend:3001/api/v1
     ports:
-      - '3000:80'
+      - '3002:80'
     depends_on:
       - recipe-backend

@@ -16,11 +16,10 @@ let testUser = null
 let sampleRecipes = []
 
 beforeAll(async () => {
-  testUser = await createUser({ username: 'dan', password: 'hunter2' })
+  // Define sample recipes template (user will be assigned in beforeEach)
   sampleRecipes = [
     {
       title: 'Classic Chocolate Chip Cookies',
-      author: testUser._id,
       ingredients: ['flour', 'butter', 'sugar', 'chocolate chips'],
       instructions: 'Mix ingredients and bake for 12 minutes',
       cookingTime: 15,
@@ -30,7 +29,6 @@ beforeAll(async () => {
     },
     {
       title: 'Spaghetti Carbonara',
-      author: testUser._id,
       ingredients: ['spaghetti', 'eggs', 'parmesan', 'pancetta'],
       instructions: 'Cook pasta, mix with eggs and cheese',
       cookingTime: 20,
@@ -40,7 +38,6 @@ beforeAll(async () => {
     },
     {
       title: 'Beef Wellington',
-      author: testUser._id,
       ingredients: [
         'beef tenderloin',
         'puff pastry',
@@ -105,10 +102,13 @@ describe('creating recipes', () => {
 let createdSampleRecipes = []
 
 beforeEach(async () => {
-  await Recipe.deleteMany({})
+  // Recreate the test user since all collections are cleared
+  testUser = await createUser({ username: 'dan', password: 'hunter2' })
+
   createdSampleRecipes = []
   for (const recipe of sampleRecipes) {
-    const createdRecipe = new Recipe(recipe)
+    const recipeWithUser = { ...recipe, author: testUser._id }
+    const createdRecipe = new Recipe(recipeWithUser)
     createdSampleRecipes.push(await createdRecipe.save())
   }
 })

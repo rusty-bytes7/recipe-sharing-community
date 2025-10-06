@@ -1,4 +1,4 @@
-name: Deploy Blog Application
+name: Deploy Recipe Sharing Application
 on:
   push:
     branches:
@@ -26,26 +26,30 @@ jobs:
           context: ./backend
           file: ./backend/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/blog-backend:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/recipe-backend:latest
       - id: deploy-backend
         name: Deploy backend
         uses: google-github-actions/deploy-cloudrun@v1
         with:
-          service: blog-backend
-          image: ${{ secrets.DOCKERHUB_USERNAME }}/blog-backend:latest
+          service: recipe-backend
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/recipe-backend:latest
           region: ${{ secrets.GOOGLECLOUD_REGION }}
+          flags: '--port=8080 --memory=1Gi --cpu=1 --timeout=300 --max-instances=10'
+          env_vars: |
+            PORT=8080
+            DATABASE_URL=${{ secrets.MONGODB_CONNECTION_STRING }}
       - name: Build and push frontend image
         uses: docker/build-push-action@v4
         with:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/blog-frontend:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/recipe-frontend:latest
           build-args: VITE_BACKEND_URL=${{ steps.deploy-backend.outputs.url }}/api/v1
       - id: deploy-frontend
         name: Deploy frontend
         uses: google-github-actions/deploy-cloudrun@v1
         with:
-          service: blog-frontend
-          image: ${{ secrets.DOCKERHUB_USERNAME }}/blog-frontend:latest
+          service: recipe-frontend
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/recipe-frontend:latest
           region: ${{ secrets.GOOGLECLOUD_REGION }}
