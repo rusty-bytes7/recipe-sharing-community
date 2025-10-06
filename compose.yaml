@@ -8,7 +8,9 @@ services:
     build: backend/
     environment:
       - PORT=3001
-      - DATABASE_URL=mongodb://localhost:27017/recipes
+      - DATABASE_URL=mongodb+srv://user:new_user_password@cluster0.bbh0gqd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+
     ports:
       - '3001:3001'
     depends_on:
