@@ -4,11 +4,16 @@ dotenv.config()
 import { app } from './app.js'
 import { initDatabase } from './db/init.js'
 
-try {
-  await initDatabase()
-  const PORT = process.env.PORT || 8080
-  app.listen(PORT)
+const PORT = process.env.PORT || 8080
+
+app.listen(PORT, () => {
   console.info(`express server running on http://localhost:${PORT}`)
-} catch (err) {
-  console.error('error connecting to database:', err)
-}
+})
+
+initDatabase()
+  .then(() => {
+    console.info('Database connected successfully')
+  })
+  .catch((err) => {
+    console.error('Error connecting to database:', err)
+  })
