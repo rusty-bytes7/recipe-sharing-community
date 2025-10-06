@@ -35,7 +35,7 @@ jobs:
           service: recipe-backend
           image: ${{ secrets.DOCKERHUB_USERNAME }}/recipe-backend:latest
           region: ${{ secrets.GOOGLECLOUD_REGION }}
-          flags: '--port=8080 --memory=1Gi --cpu=1 --timeout=300 --max-instances=10 --allow-unauthenticated'
+          flags: '--port=8080 --memory=1Gi --cpu=1 --timeout=300 --max-instances=10 --allow-unauthenticated --cpu-boost'
           env_vars: |
             DATABASE_URL=${{ secrets.MONGODB_CONNECTION_STRING }}
       - name: Build and push frontend image
