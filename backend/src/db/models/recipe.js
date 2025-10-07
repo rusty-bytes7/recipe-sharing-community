@@ -6,7 +6,7 @@ const recipeSchema = new Schema(
     author: { type: Schema.Types.ObjectId, ref: 'user', required: true },
     ingredients: [String],
     instructions: String,
-    cookingTime: Number, // in minutes
+    cookingTime: Number, //minutes
     servings: Number,
     difficulty: {
       type: String,
