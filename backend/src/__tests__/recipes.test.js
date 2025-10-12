@@ -97,6 +97,19 @@ describe('creating recipes', () => {
     const createdRecipe = await createRecipe(testUser._id, recipe)
     expect(createdRecipe._id).toBeInstanceOf(mongoose.Types.ObjectId)
   })
+
+  test('with image URL should succeed', async () => {
+    const recipe = {
+      title: 'Recipe with Image',
+      image: 'https://example.com/recipe-image.jpg',
+      ingredients: ['flour', 'sugar'],
+      instructions: 'Mix ingredients and bake',
+      tags: ['dessert'],
+    }
+    const createdRecipe = await createRecipe(testUser._id, recipe)
+    expect(createdRecipe._id).toBeInstanceOf(mongoose.Types.ObjectId)
+    expect(createdRecipe.image).toBe('https://example.com/recipe-image.jpg')
+  })
 })
 
 let createdSampleRecipes = []

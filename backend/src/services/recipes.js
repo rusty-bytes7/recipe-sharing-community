@@ -3,10 +3,20 @@ import { User } from '../db/models/user.js'
 
 export async function createRecipe(
   userId,
-  { title, ingredients, instructions, cookingTime, servings, difficulty, tags },
+  {
+    title,
+    image,
+    ingredients,
+    instructions,
+    cookingTime,
+    servings,
+    difficulty,
+    tags,
+  },
 ) {
   const recipe = new Recipe({
     title,
+    image,
     author: userId,
     ingredients,
     instructions,
@@ -46,13 +56,23 @@ export async function getRecipeById(recipeId) {
 export async function updateRecipe(
   userId,
   recipeId,
-  { title, ingredients, instructions, cookingTime, servings, difficulty, tags },
+  {
+    title,
+    image,
+    ingredients,
+    instructions,
+    cookingTime,
+    servings,
+    difficulty,
+    tags,
+  },
 ) {
   return await Recipe.findOneAndUpdate(
     { _id: recipeId, author: userId },
     {
       $set: {
         title,
+        image,
         ingredients,
         instructions,
         cookingTime,

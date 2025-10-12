@@ -3,6 +3,7 @@ import { User } from './User.jsx'
 
 export function Recipe({
   title,
+  image,
   ingredients,
   instructions,
   cookingTime,
@@ -21,6 +22,23 @@ export function Recipe({
       }}
     >
       <h3>{title}</h3>
+      {image && (
+        <div style={{ marginBottom: '16px' }}>
+          <img
+            src={image}
+            alt={title}
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+              borderRadius: '4px',
+              display: 'block',
+            }}
+            onError={(e) => {
+              e.target.style.display = 'none'
+            }}
+          />
+        </div>
+      )}
       <div>
         <strong>Cooking Time:</strong> {cookingTime} minutes
       </div>
@@ -59,6 +77,7 @@ export function Recipe({
 
 Recipe.propTypes = {
   title: PropTypes.string.isRequired,
+  image: PropTypes.string,
   ingredients: PropTypes.arrayOf(PropTypes.string),
   instructions: PropTypes.string,
   cookingTime: PropTypes.number,

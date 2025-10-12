@@ -7,6 +7,7 @@ export function CreateRecipe() {
   const [token] = useAuth()
 
   const [title, setTitle] = useState('')
+  const [image, setImage] = useState('')
   const [ingredients, setIngredients] = useState('')
   const [instructions, setInstructions] = useState('')
   const [cookingTime, setCookingTime] = useState('')
@@ -19,6 +20,7 @@ export function CreateRecipe() {
     mutationFn: () =>
       createRecipe(token, {
         title,
+        image,
         ingredients: ingredients.split('\n').filter((i) => i.trim()),
         instructions,
         cookingTime: parseInt(cookingTime) || 0,
@@ -50,6 +52,19 @@ export function CreateRecipe() {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           style={{ width: '100%', marginBottom: '10px' }}
+        />
+      </div>
+
+      <div>
+        <label htmlFor='create-image'>Image URL (optional): </label>
+        <input
+          type='url'
+          name='create-image'
+          id='create-image'
+          value={image}
+          onChange={(e) => setImage(e.target.value)}
+          style={{ width: '100%', marginBottom: '10px' }}
+          placeholder='https://example.com/recipe-image.jpg'
         />
       </div>
 
