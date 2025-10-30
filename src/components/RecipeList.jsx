@@ -9,7 +9,7 @@ export function RecipeList({ recipes = [] }) {
       {recipes.map((recipe) => (
         <Fragment key={recipe._id}>
           <Recipe {...recipe} />
-          <LikeButton />
+          <LikeButton recipeId={recipe._id} />
           <hr />
         </Fragment>
       ))}

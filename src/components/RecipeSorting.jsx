@@ -7,6 +7,16 @@ export function RecipeSorting({
   orderValue,
   onOrderChange,
 }) {
+  // Map field names to user-friendly labels
+  const fieldLabels = {
+    createdAt: 'Date Created',
+    updatedAt: 'Date Updated',
+    likes: 'Like Count',
+    title: 'Title',
+    cookingTime: 'Cooking Time',
+    difficulty: 'Difficulty',
+  }
+
   return (
     <div>
       <label htmlFor='sortBy'>Sort By: </label>
@@ -18,7 +28,7 @@ export function RecipeSorting({
       >
         {fields.map((field) => (
           <option key={field} value={field}>
-            {field}
+            {fieldLabels[field] || field}
           </option>
         ))}
       </select>

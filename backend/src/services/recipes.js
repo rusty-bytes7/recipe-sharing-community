@@ -32,7 +32,39 @@ async function listRecipes(
   query = {},
   { sortBy = 'createdAt', sortOrder = 'descending' } = {},
 ) {
-  return await Recipe.find(query).sort({ [sortBy]: sortOrder })
+  const mongoSortOrder = sortOrder === 'ascending' ? 1 : -1
+
+  //if sorting by likes, use aggregation
+  if (sortBy === 'likes') {
+    const pipeline = [
+      { $match: query },
+      {
+        $lookup: {
+          from: 'likes',
+          localField: '_id',
+          foreignField: 'recipe',
+          as: 'likes',
+        },
+      },
+      {
+        $addFields: {
+          likeCount: { $size: '$likes' },
+        },
+      },
+      {
+        $sort: { likeCount: mongoSortOrder },
+      },
+      {
+        $project: {
+          likes: 0, //Remove the likes array from output
+        },
+      },
+    ]
+    return await Recipe.aggregate(pipeline)
+  }
+
+  //regular sorting for other fields
+  return await Recipe.find(query).sort({ [sortBy]: mongoSortOrder })
 }
 
 export async function listAllRecipes(options) {
