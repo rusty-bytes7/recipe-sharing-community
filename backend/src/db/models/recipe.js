@@ -14,6 +14,7 @@ const recipeSchema = new Schema(
       enum: ['Easy', 'Medium', 'Hard'],
       default: 'Easy',
     },
+    likes: { type: Number, default: 0 },
     tags: [String],
   },
   { timestamps: true },

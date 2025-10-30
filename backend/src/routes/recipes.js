@@ -6,6 +6,8 @@ import {
   createRecipe,
   updateRecipe,
   deleteRecipe,
+  likeRecipe,
+  dislikeRecipe,
 } from '../services/recipes.js'
 
 import { requireAuth } from '../middleware/jwt.js'
@@ -71,6 +73,27 @@ export function recipesRoutes(app) {
       return res.status(204).end()
     } catch (err) {
       console.error('error deleting recipe', err)
+      return res.status(500).end()
+    }
+  })
+  app.post('/api/v1/recipes/:id/like', requireAuth, async (req, res) => {
+    try {
+      const recipe = await likeRecipe(req.params.id)
+      if (recipe === null) return res.status(404).end()
+      return res.json(recipe)
+    } catch (err) {
+      console.error('error liking recipe', err)
+      return res.status(500).end()
+    }
+  })
+
+  app.post('/api/v1/recipes/:id/dislike', requireAuth, async (req, res) => {
+    try {
+      const recipe = await dislikeRecipe(req.params.id)
+      if (recipe === null) return res.status(404).end()
+      return res.json(recipe)
+    } catch (err) {
+      console.error('error disliking recipe', err)
       return res.status(500).end()
     }
   })
